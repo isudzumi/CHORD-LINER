@@ -5,8 +5,7 @@
     <ProjectGuid>1f6f351a-3b4d-4fd8-9479-74a37bee7a85</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>CHORD_LINER.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>..\CHORD-LINER</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>CHORD-LINER</Name>
