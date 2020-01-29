@@ -1,4 +1,5 @@
 import os
+import boto3
 from chalice import Chalice, Response
 from linebot import (
     LineBotApi, WebhookHandler
@@ -8,13 +9,20 @@ from linebot.models import (
 )
 from linebot.exceptions import InvalidSignatureError
 
+client = boto3.client('ssm')
+parameters = client.get_parameters(
+    Names = [
+        'LINE_CHANNEL_ACCESS_TOKEN',
+        'LINE_CHANNEL_SECRET'
+    ],
+    WithDecryption=True)
+CHANNEL_ACCESS_TOKEN = parameters['Parameters'][0]['Value']
+CHANNEL_SECRET = parameters['Parameters'][1]['Value']
+
+line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(CHANNEL_SECRET)
+
 app = Chalice(app_name="chord-liner")
-
-channel_access_token = os.environ['LINE_CHANNEL_ACCESS_TOKEN']
-channel_secret = os.environ['LINE_CHANNEL_SECRET']
-
-line_bot_api = LineBotApi(channel_access_token)
-handler = WebhookHandler(channel_secret)
 
 @app.route('/callback', methods=['POST'])
 def callback():
