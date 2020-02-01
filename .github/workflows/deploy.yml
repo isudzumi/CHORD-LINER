@@ -10,9 +10,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v1
-          with:
-            python-version: '3.7'
-            architecture: 'x64'
+        with:
+          python-version: '3.7'
+          architecture: 'x64'
       - name: Install poetry
         run: |
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py > get-poetry.py &&
