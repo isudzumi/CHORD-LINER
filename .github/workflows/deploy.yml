@@ -1,0 +1,23 @@
+name: Deploy
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+          with:
+            python-version: '3.7'
+            architecture: 'x64'
+      - name: Install poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py > get-poetry.py &&
+          python get-poetry.py --version 1.0.2
+      - name: Install
+        run: poetry install
+      - name: Deploy
+        run: poetry run chalice deploy
