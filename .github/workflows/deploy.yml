@@ -23,6 +23,8 @@ jobs:
           echo ::add-path::$HOME/.poetry/bin
       - name: Install
         run: poetry install
+      - name: Generate requirements.txt
+        run: poetry export -f requirements.txt > requirements.txt
       - name: Deploy
         run: poetry run chalice deploy
         env:
