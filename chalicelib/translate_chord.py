@@ -20,7 +20,7 @@ def accumulate_note_order(prev: List[int], next: int) -> List[int]:
     octave = math.floor(prev[-1] / len(SCALE)) * len(SCALE) if len(prev) > 0 else 0
     interval = octave + next
     if len(prev) > 0 and prev[-1] > interval:
-        interval = octave + 1 + next
+        interval = interval + len(SCALE)
         prev.append(interval)
     else:
         prev.append(interval)
@@ -39,5 +39,6 @@ def compose_note(notes: List[str]):
     pass
 
 if __name__ == '__main__':
-    notes = analyze_chord('Gadd9')
+    notes = analyze_chord('G11')
     frequency_map = make_frequency_map(notes)
+    print(frequency_map)
