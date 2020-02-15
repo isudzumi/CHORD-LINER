@@ -45,13 +45,16 @@ def compose_note(frequencies: List[float]):
     sin_waves = translate(frequencies)
     return np.sum(sin_waves, axis=0)
 
-def translate_chord(chord_signal: str):
-    notes = analyze_chord(chord_signal)
+def save_wavefile(chord_signal):
+    wave_signals = 0.1*(chord_signal)
+    wave = (wave_signals * float(2 ** 15 - 1)).astype(np.int16)
+    wavfile.write('Dadd9.wav', SAMPLING_RATE, wave)
+
+def translate_chord(chord_symbol: str):
+    notes = analyze_chord(chord_symbol)
     frequency_list = translate_to_freauencies(notes)
     return compose_note(frequency_list)
 
 if __name__ == '__main__':
     chord = translate_chord('Gadd9')
-    wave_signals = 0.1*(chord)
-    wave = (wave_signals * float(2 ** 15 - 1)).astype(np.int16)
-    wavfile.write('Dadd9.wav', SAMPLING_RATE, wave)
+    save_wavefile(chord)
