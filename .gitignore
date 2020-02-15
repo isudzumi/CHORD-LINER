@@ -487,3 +487,6 @@ MigrationBackup/
 # Chalice files
 .chalice/deployments/
 .chalice/venv/
+
+# assets files
+*.wav
