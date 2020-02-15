@@ -24,7 +24,7 @@ jobs:
       - name: Install
         run: poetry install
       - name: Generate requirements.txt
-        run: poetry export -f --without-hashes requirements.txt > requirements.txt
+        run: poetry export --without-hashes -f requirements.txt > requirements.txt
       - name: Deploy
         run: poetry run chalice deploy
         env:
