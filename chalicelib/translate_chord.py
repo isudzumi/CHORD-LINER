@@ -18,15 +18,19 @@ def analyze_chord(symbol: str) -> List[str]:
 def make_frequency_list(note_indexes: List[int]) -> List[float]:
     return [ BASE_FREQUENCY * 2 ** ( i / 12 ) for i in note_indexes ]
 
-def accumulate_note_order(prev: List[int], next: int) -> List[int]:
-    octave = math.floor(prev[-1] / len(SCALE)) * len(SCALE) if len(prev) > 0 else 0
-    interval = octave + next
-    if len(prev) > 0 and prev[-1] > interval:
-        interval = interval + len(SCALE)
-        prev.append(interval)
-    else:
-        prev.append(interval)
-    return prev
+def get_current_octave(interval: int):
+    return math.floor(interval / len(SCALE)) * len(SCALE)
+
+def raise_octave(order):
+    return order + len(SCALE)
+
+def accumulate_note_order(intervals: List[int], order: int) -> List[int]:
+    current_octave = get_current_octave(intervals[-1]) if len(intervals) > 0 else 0
+    interval = current_octave + order
+    if len(intervals) > 0 and intervals[-1] > interval:
+        interval = raise_octave(interval)
+    intervals.append(interval)
+    return intervals
 
 def make_note_index_list(chords: List[str]) -> List[int]:
     note_indexes = [ SCALE.index(chord) for chord in chords ]
