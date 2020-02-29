@@ -1,6 +1,7 @@
 import os
 import logging
 import boto3
+import numpy as np
 from botocore.exceptions import ClientError
 from scipy.io import wavfile
 
