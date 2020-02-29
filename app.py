@@ -44,6 +44,6 @@ def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
         AudioSendMessage(
-            original_content_url=response.url,
-            duration=response.duration
+            original_content_url=response['url'],
+            duration=response['duration']
         ))
