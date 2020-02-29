@@ -1,7 +1,7 @@
 from typing import Dict
-from extract_chord import extract_chord
-from translate_chord import translate_chord
-from save_file import save_file
+from chalicelib.extract_chord import extract_chord
+from chalicelib.translate_chord import translate_chord
+from chalicelib.save_file import save_file
 
 def get_chord(event):
     chord = extract_chord(event.message.text)
