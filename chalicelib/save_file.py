@@ -10,13 +10,13 @@ S3_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 def save_wavefile(audio):
     wave_signals = 0.1*(audio['signals'])
     wave = (wave_signals * float(2 ** 15 - 1)).astype(np.int16)
-    wavfile.write(audio['file_name'], audio['sampling_rate'], wave)
+    wavfile.write('/tmp/' + audio['file_name'], audio['sampling_rate'], wave)
 
 def uploadToS3(file_name) -> bool:
     s3 = boto3.client('s3')
     try:
         s3.upload_file(
-            file_name,
+            '/tmp/' + file_name,
             S3_BUCKET_NAME,
             file_name,
             ExtraArgs={'ACL': 'public-read'}
