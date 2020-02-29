@@ -3,7 +3,7 @@ from chalicelib.extract_chord import extract_chord
 def test_single_major_chord():
     assert extract_chord("演奏して\nC") == 'C'
 
-def test_if_allow_line_feed():
+def test_lack_of_line_feed():
     assert extract_chord('演奏してC') == 'C'
 
 def test_no_input():
