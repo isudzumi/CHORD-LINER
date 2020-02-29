@@ -56,7 +56,7 @@ def translate_chord(chord_symbol: str):
     frequency_list = translate_to_freauencies(notes)
     return {
         'signals': compose_note(frequency_list),
-        'duration': SECONDS,
+        'duration': int(SECONDS * 1000),
         'sampling_rate': SAMPLING_RATE
     }
 
