@@ -15,8 +15,8 @@ def get_chord(event):
     if not response:
         return {}
     return {
-        'url': response.url,
-        'duration': audio.duration
+        'url': response['url'],
+        'duration': audio['duration']
     }
 
 if __name__ == "__main__":
