@@ -1,13 +1,13 @@
-import os
 import boto3
 from chalice import Chalice, Response
 from linebot import (
     LineBotApi, WebhookHandler
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage
+    MessageEvent, TextMessage, AudioSendMessage
 )
 from linebot.exceptions import InvalidSignatureError
+from chalicelib import chord_liner
 
 client = boto3.client('ssm')
 parameters = client.get_parameters(
@@ -38,8 +38,12 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    if event.message.text != 'コード':
+    response = chord_liner.get_chord(event)
+    if not response:
         return {}
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        AudioSendMessage(
+            original_content_url=response.url,
+            duration=response.duration
+        ))
